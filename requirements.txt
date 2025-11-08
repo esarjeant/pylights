@@ -1,0 +1,5 @@
+argparse>=1.4.0
+astral
+timezonefinder>=8.1.0
+pytz>=2025.2
+pywemo==1.4.0
