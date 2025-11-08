@@ -36,14 +36,14 @@ Turning off is the reverse request:
 
     schedule_lights.py --device_off now --device_name "My Light Name"
 
-## Sunset Method
-For sunset you may include your geolocation (latitude / longitude) and this is
-used to determine when sunset occurs in your area. Once running in this mode, 
-the script waits for sunset (assuming it is in the future). 
+## Sunrise/Sunset Method
+For sun events you may include your geolocation (latitude / longitude) and this is
+used to determine when sun events occurs in your area. Once running in this mode, 
+the script waits for either sunrise or sunset (assuming it is in the future). 
 
-After sunset triggers the light on event, the method to keep the light on is 
+After sun events trigger the light on event, the method to keep the light on is 
 determined from `device_off`.
 
-For example, to turn on at sunset and the off at 11:30 PM local time:
+For example, to turn on at sunset and off at 11:30 PM local time:
 
     schedule_lights.py --device_on sunset --device_off 21:30 --device_name "My Light Name"
