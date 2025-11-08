@@ -6,10 +6,6 @@ Ad-hoc script for turning on / off home lights using the PyWemo toolkit.
 This is intended to replace the service offered by Belkin to perform these operations once it is sunset in January 2026.
 
 # Installation
-If you wish to use the venv included with this source:
-
-    source ./.venv/bin/activate
-
 For your selected Python environment:
 
     pip3 install -r requirements.txt
