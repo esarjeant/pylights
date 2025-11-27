@@ -169,6 +169,7 @@ def find_device(device_name):
     devices = pywemo.discover_devices()
 
     for device in devices:
+        print(f"Found device {device}")
         if (device.name == device_name):
             return device
 
