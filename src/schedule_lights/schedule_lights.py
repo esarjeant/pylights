@@ -22,10 +22,10 @@ class ToggleSwitch:
     ON = 1
 
 # patterns to match for on/off time based expression
-MATCH_SECONDS = "^\d+$"
-MATCH_HOUR_MINUTE = "^\d+:\d+$"
+MATCH_SECONDS = "^\\d+$"
+MATCH_HOUR_MINUTE = "^\\d+:\\d+$"
 
-def device_mode_param(param, pat=re.compile(r"^(omit|now|sunrise|sunset|\d+|\d+:\d+)$")):
+def device_mode_param(param, pat=re.compile(r"^(omit|now|sunrise|sunset|\\d+|\\d+:\\d+)$")):
     if not pat.match(param):
         raise argparse.ArgumentTypeError("Unsupported device toggle [ omit | now | sunrise | sunset | HH:MM | SS ]")
     return param
@@ -175,6 +175,11 @@ def find_device(device_name):
 
     return None
 
+def device_clear(device):
+    device.reset(data=True, wifi=False)
+
+    print(f"Device Cleared {device}")
+
 def device_toggle(toggle, device, condition, latitude, longitude):
     """
      Toggle device either ON or OFF based on the condition specified.
@@ -208,6 +213,7 @@ def main():
     parser.add_argument("--longitude", help="Longitude of your location.", type=float, required=False)
     parser.add_argument("--device_on", help="Turn on at this condition; default is to not execute any on mode.", type=device_mode_param, default="omit")
     parser.add_argument("--device_off", help="Turn off at this condition; default is to not execute any off mode.", type=device_mode_param, default="omit")
+    parser.add_argument("--device_clear", help="Wipe data from the device.", type=device_mode_param, default="omit")
 
     args = parser.parse_args()
 
@@ -218,6 +224,11 @@ def main():
         print("Device not found")
         exit(1)
 
+    if args.device_clear:
+        device_clear(device)
+        exit(0)
+
+    # normal device on / off control
     device_toggle(ToggleSwitch.ON, device, args.device_on, args.latitude, args.longitude)
     device_toggle(ToggleSwitch.OFF, device, args.device_off, args.latitude, args.longitude)
 
